@@ -3,8 +3,15 @@ App.tsx:
 
 #### Hidden until fixes / follow up discussion
 - what happens when you fast click delayed decrement multiple times
+There is decrement of count by number of clicks.
+This is because by clicking on button setTimeout is created each time and each time timeout expire, count is decremented.
+This could be prevented by disabling button until promise is resolved
+
 - when should I use useCallback? 
+   You should use useCallback in heavy computational methods.
    - when it is not needed?
+   It is not needed e.g. with frequently changing dependency or with elements events
    - what is better performance (speed & memmory) wise? 
+
 - (expert question) what is wrong with using `sleep()` like here?
 */

@@ -7,8 +7,25 @@ interface Props {
 
 export function ActionButton(props: Props) {
   const { onClick, children } = props;
+  const [status, setStatus] = useState<string>("resolve");
 
-  return <button onClick={onClick}>{children}</button>;
+  const onButtonClick = async () => {
+    setStatus("pending");
+    try {
+      await onClick();
+      setStatus("resolve");
+    } catch (err) {
+      setStatus("reject");
+    }
+  };
+
+  return (
+    <button onClick={onButtonClick}>
+      {status === "pending" && "loading"}
+      {status === "resolve" && children}
+      {status === "reject" && "ERROR"}
+    </button>
+  );
 }
 
 /**
@@ -18,5 +35,6 @@ export function ActionButton(props: Props) {
  */
 
 /*
-expert question - why mnemoisation of this component won't help?
+expert question - why memoisation of this component won't help?
+I think it wont help because by memoisation there is no acces to incrementing and decrementing functions 
 */
